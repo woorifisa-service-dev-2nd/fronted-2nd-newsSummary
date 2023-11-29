@@ -5,9 +5,9 @@
 
 ## 🙋‍♂️ 팀원 소개
 
-| [이진천](https://github.com/Jin)      | [김남혁](https://github.com/knh9612)      | [김지관](https://github.com/JiKwan)      | [김유은](https://github.com/YueunKim)      |
+| [이진천](https://github.com/LeeJincheon)      | [김남혁](https://github.com/knh9612)      | [김지관](https://github.com/zc149)      | [김유은](https://github.com/YueunKim)      |
 | ------------------------------------- | ----------------------------------------- | ---------------------------------------- | ------------------------------------------ |
-| ![이진천](https://github.com/Jin.png) | ![김남혁](https://github.com/knh9612.png) | ![김지관](https://github.com/JiKwan.png) | ![김유은](https://github.com/YueunKim.png) |
+| ![이진천](https://github.com/LeeJincheon.png) | ![김남혁](https://github.com/knh9612.png) | ![김지관](https://github.com/zc149.png) | ![김유은](https://github.com/YueunKim.png) |
 
 <br/>
 <br/>
