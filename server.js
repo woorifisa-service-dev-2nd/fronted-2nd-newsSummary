@@ -16,8 +16,8 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 
 app.get('/', (req, res) => {
-  console.log(res);
-  // res.sendFile('index.html');
+  // console.log(res);
+  res.sendFile('index.html');
 });
 
 app.get('/search/news', function (req, res) {
@@ -45,9 +45,19 @@ app.get('/search/news', function (req, res) {
 app.post('/scrap/news', async function (req, res) {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-  await page.goto(req.body.newsLink);
+  // waitUntil : 모든 네트워크 연결이 최소 500ms 동안 비어있을 때까지 페이지 로딩을 기다림. 페이지의 모든 요소가 로드된 후에 article 태그를 찾음
+  await page.goto(req.body.newsLink, { waitUntil: 'networkidle0' });
   const data = await page.evaluate(async () => {
-    return { news: document.getElementsByTagName('p')[0].innerHTML };
+    // article 태그 안의 텍스트
+    const contentElement =
+      document.getElementsByTagName('article')[0] ||
+      document.getElementById('articeBody');
+
+    return {
+      news: contentElement
+        ? contentElement.textContent
+        : '더 이상 뉴스가 없습니다.',
+    };
   });
   console.log(data);
   browser.close();
@@ -56,6 +66,6 @@ app.post('/scrap/news', async function (req, res) {
 
 app.listen(3000, function () {
   console.log(
-    'http://127.0.0.1:3000/search/shop?query=검색어 app listening on port 3000!',
+    'http://127.0.0.1:3000/search/news?query=검색어 app listening on port 3000!',
   );
 });
