@@ -16,8 +16,7 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 
 app.get('/', (req, res) => {
-  console.log(res);
-  // res.sendFile('index.html');
+  res.sendFile('index.html');
 });
 
 app.get('/search/news', function (req, res) {
@@ -42,20 +41,56 @@ app.get('/search/news', function (req, res) {
   });
 });
 
+
 app.post('/scrap/news', async function (req, res) {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(req.body.newsLink);
-  const data = await page.evaluate(async () => {
-    return { news: document.getElementsByTagName('p')[0].innerHTML };
-  });
+
+  let data;
+
+  // 네이버 기사 tagName은 두가지라 조건문으로 검증
+  const articleBodyElement = await page.$('#articeBody');
+  if (articleBodyElement) {
+    data = await page.$eval(
+      "#articeBody", (element) => {
+        return { news: element.textContent };
+      }
+    )
+  }
+  else {
+    const dicAreaElement = await page.$('#dic_area');
+    if (dicAreaElement) {
+      data = await page.$eval(
+        "#dic_area", (element) => {
+          return { news: element.textContent };
+        })
+    }
+    else {
+
+    }
+  }
+
+
+  // const data = await page.$eval(
+  //   "#articeBody", async => {
+  //     return { news: async.textContent };
+  //   });
+
+  
   console.log(data);
+
   browser.close();
   res.send(data);
+
+
+
+
 });
 
 app.listen(3000, function () {
   console.log(
-    'http://127.0.0.1:3000/search/shop?query=검색어 app listening on port 3000!',
+    'http://127.0.0.1:3000/ app listening on port 3000!',
   );
 });
+
