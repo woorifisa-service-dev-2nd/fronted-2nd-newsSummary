@@ -1,36 +1,17 @@
+const search = document.getElementById('text');
+const btn = document.getElementById('btn');
 
+btn.addEventListener('click', () => {
+  const text = search.value;
+  console.log(text);
 
-const text = document.getElementById('search')
-const searchClick = document.getElementById('btn')
+  const url = '/search/news';
+//   const url = '/search/shop';
+  const options = {
+      method: 'GET',
+  };
 
-searchClick.addEventListener('click', (event) => {
-    const textValue = text.value;
-    console.log(textValue);
-
-    const url = '/search/news'
-    const body =JSON.stringify({ query : textValue})
-    const options = optionsFrom('POST', body)
-
-    fetch(url, optionsFrom)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        
-    })
-
-})
-
-
-
-const optionsFrom = (method, body, headers) => {
-    return {
-        method,
-
-        headers: {
-            'Content-Type': 'application/json',
-            ...headers
-        },
-        body
-    };
-};
-
+  fetch(`${url}?query=${text}&sort=date`, options)
+  .then(res => res.json())
+  .then(data => console.log(data.items[0].title));
+});
