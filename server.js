@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
 const dotenv = require('dotenv');
+const puppeteer = require('puppeteer');
 
 const app = express();
 
@@ -12,7 +13,7 @@ require('dotenv').config();
 dotenv.config();
 
 const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENt_SECRET;
+const clientSecret = process.env.CLIENT_SECRET;
 
 app.get('/', (req, res) => {
   console.log(res);
@@ -39,6 +40,18 @@ app.get('/search/news', function (req, res) {
       console.log(`error = ${response.statusCode}`);
     }
   });
+});
+
+app.post('/scrap/news', async function (req, res) {
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.goto(req.body.newsLink);
+  const data = await page.evaluate(async () => {
+    return { news: document.getElementsByTagName('p')[0].innerHTML };
+  });
+  console.log(data);
+  browser.close();
+  res.send(data);
 });
 
 app.listen(3000, function () {
