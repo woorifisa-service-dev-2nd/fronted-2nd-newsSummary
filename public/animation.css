@@ -1,0 +1,26 @@
+html.dark-mode,
+body.dark-mode,
+div.dark-mode,
+.dark-mode button,
+.dark-mode input,
+.dark-mode input::placeholder {
+  background-color: #000;
+  color: #fff;
+}
+
+.toggle-container {
+  position: absolute;
+  top: 6%;
+  right: 5%;
+  z-index: 10;
+}
+
+#darkmode-btn {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#darkmode-btn i {
+  transform: scale(2.5);
+}
