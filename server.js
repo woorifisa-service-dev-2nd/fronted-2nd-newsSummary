@@ -14,6 +14,17 @@ dotenv.config();
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
+const summaryId = process.env.SUMMARY_ID;
+const summarySecret = process.env.SUMMARY_SECRET;
+
+
+function cleanText(text) {
+  return text
+    .replace(/\t/g, ' ') // 탭을 공백으로 대체
+    .replace(/\n/g, ' ') // 줄바꿈을 공백으로 대체
+    .replace(/\s+/g, ' ') // 연속된 공백을 하나의 공백으로 대체
+    .trim(); // 앞뒤 공백 제거
+}
 
 app.get('/', (req, res) => {
   // console.log(res);
@@ -63,6 +74,47 @@ app.post('/scrap/news', async function (req, res) {
   browser.close();
   res.send(data);
 });
+
+app.post('/summary', async function (req, res) {
+  let title = req.body.title;
+  let content = req.body.content;
+  console.log('req.body.content=', cleanText(req.body.content));
+
+  // 제목과 본문의 길이 확인
+  if ((title + content).length > 2000) {
+    content = content.slice(0, 2000 - title.length);
+  }
+
+  let request_body = {
+    document: {
+      title: title,
+      content: cleanText(content),
+    },
+    option: {
+      language: 'ko',
+      model: 'news',
+      tone: 2,
+      summaryCount: 3,
+    },
+  };
+
+  const api_url =
+    'https://naveropenapi.apigw.ntruss.com/text-summary/v1/summarize';
+  const summaryResponse = await fetch(api_url, {
+    method: 'POST',
+    headers: {
+      'X-NCP-APIGW-API-KEY-ID': summaryId,
+      'X-NCP-APIGW-API-KEY': summarySecret,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request_body),
+  });
+
+  const summaryData = await summaryResponse.json();
+  console.log(summaryData);
+  res.send(summaryData);
+});
+
 
 app.listen(3000, function () {
   console.log(

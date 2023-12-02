@@ -1,5 +1,7 @@
 const search = document.getElementById('text');
 const btn = document.getElementById('btn');
+const summaryBtn = document.getElementById('summary-button');
+
 let naverNews = [];
 let currentIndex = 0;
 
@@ -63,5 +65,34 @@ btn.addEventListener('click', () => {
       } else {
         console.log('naver 뉴스가 없어요');
       }
+    });
+});
+
+
+summaryBtn.addEventListener('click', () => {
+  const newsUrl = naverNews[currentIndex].link;
+  fetch('/scrap/news', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ newsLink: newsUrl }),
+  })
+    .then((res) => res.json())
+    .then((newsData) => {
+      fetch('/summary', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: naverNews[currentIndex].title,
+          content: newsData.news,
+        }),
+      })
+        .then((res) => res.json())
+        .then((summaryData) => {
+          document.getElementById('summary').innerHTML = summaryData.summary;
+        });
     });
 });
