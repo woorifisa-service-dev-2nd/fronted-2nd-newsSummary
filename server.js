@@ -9,14 +9,12 @@ app.use(express.static('public'));
 app.use(express.json());
 
 require('dotenv').config();
-
 dotenv.config();
 
 const searchId = process.env.CLIENT_ID_SEARCH;
 const searchSecret = process.env.CLIENT_SECRET_SEARCH;
 const summaryId = process.env.CLIENT_ID_SUMMARY;
 const summarySecret = process.env.CLIENT_SECRET_SUMMARY;
-
 
 function cleanText(text) {
   return text
@@ -31,9 +29,7 @@ app.get('/', (res) => {
 });
 
 app.get('/search/news', function (req, res) {
-  const apiUrl = `https://openapi.naver.com/v1/search/news?query=${encodeURI(
-    req.query.query,
-  )}`; // JSON 결과
+  const apiUrl = `https://openapi.naver.com/v1/search/news?query=${encodeURI(req.query.query)}`; // JSON 결과
   const options = {
     url: apiUrl,
     headers: {
