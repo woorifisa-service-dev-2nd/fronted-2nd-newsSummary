@@ -21,7 +21,9 @@ function updateNews(index) {
     .then((res) => res.json())
     .then((newsData) => {
       console.log(newsData);
-      document.getElementById('article').innerHTML = newsData.news;
+      document.getElementById('article-title').innerHTML =
+        '제목 : ' + naverNews[index].title;
+      document.getElementById('article').innerHTML = '본문 : ' + newsData.news;
     });
 }
 
@@ -33,6 +35,15 @@ nextBtn.addEventListener('click', () => {
     updateNews(currentIndex);
   } else {
     console.log('더 이상 뉴스가 없습니다.');
+  }
+});
+
+// 이전 버튼
+const previousBtn = document.getElementById('previous');
+previousBtn.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateNews(currentIndex);
   }
 });
 

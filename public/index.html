@@ -3,15 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Music App</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>News Summary</title>
     <script defer src="app.js"></script>
+    <script defer src="darkmode.js"></script>
+    <script
+      src="https://kit.fontawesome.com/8e46d0fb5f.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animation.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700&family=Nanum+Gothic:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
-    <input id="text" type="text" />
-    <button id="btn">검색</button>
-    <button id="next">다음</button>
-    <p id="article"></p>
+    <div class="toggle-container">
+      <button id="darkmode-btn">
+        <i class="fa-solid fa-moon" style="color: #000000"></i>
+      </button>
+    </div>
+    <div class="container">
+      <div class="naver">
+        <div class="logo-container">
+          <img src="./images/logo_Green.png" id="logo" alt="Naver Logo" />
+        </div>
+        <div class="search-container">
+          <input type="text" id="text" placeholder="검색어를 입력해 주세요." />
+          <button type="submit" id="btn">
+            <i
+              class="fa-solid fa-magnifying-glass"
+              id="search"
+              style="color: #03cf5d"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <div class="news">
+        <div class="article-container">
+          <div class="article-title">
+            <button id="previous">
+              <i class="fa-solid fa-caret-left" style="color: #03cf5d"></i>
+            </button>
+            <h2>최신 뉴스</h2>
+            <button id="next">
+              <i class="fa-solid fa-caret-right" style="color: #03cf5d"></i>
+            </button>
+          </div>
+          <div class="article-box">
+            <p id="article-title"></p>
+            <p id="article"></p>
+          </div>
+        </div>
+        <button id="summary-button">요약하기</button>
+        <div class="summary-container">
+          <div class="summary-title">
+            <h2>요약 내용</h2>
+          </div>
+          <div class="summary-box">
+            <p id="summary"></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
