@@ -12,10 +12,10 @@ require('dotenv').config();
 
 dotenv.config();
 
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-const summaryId = process.env.SUMMARY_ID;
-const summarySecret = process.env.SUMMARY_SECRET;
+const searchId = process.env.CLIENT_ID_SEARCH;
+const searchSecret = process.env.CLIENT_SECRET_SEARCH;
+const summaryId = process.env.CLIENT_ID_SUMMARY;
+const summarySecret = process.env.CLIENT_SECRET_SUMMARY;
 
 
 function cleanText(text) {
@@ -26,8 +26,7 @@ function cleanText(text) {
     .trim(); // 앞뒤 공백 제거
 }
 
-app.get('/', (req, res) => {
-  // console.log(res);
+app.get('/', (res) => {
   res.sendFile('index.html');
 });
 
@@ -38,8 +37,8 @@ app.get('/search/news', function (req, res) {
   const options = {
     url: apiUrl,
     headers: {
-      'X-Naver-Client-Id': clientId,
-      'X-Naver-Client-Secret': clientSecret,
+      'X-Naver-Client-Id': searchId,
+      'X-Naver-Client-Secret': searchSecret,
     },
   };
   request.get(options, function (error, response, body) {
@@ -64,28 +63,22 @@ app.post('/scrap/news', async function (req, res) {
       document.getElementsByTagName('article')[0] ||
       document.getElementById('articeBody');
 
-    return {
-      news: contentElement
-        ? contentElement.textContent
-        : '더 이상 뉴스가 없습니다.',
-    };
+    return { news: contentElement ? contentElement.textContent : '더 이상 뉴스가 없습니다.' };
   });
-  console.log(data);
   browser.close();
   res.send(data);
 });
 
-app.post('/summary', async function (req, res) {
+app.post('/summary/news', async function (req, res) {
   let title = req.body.title;
   let content = req.body.content;
-  console.log('req.body.content=', cleanText(req.body.content));
 
   // 제목과 본문의 길이 확인
   if ((title + content).length > 2000) {
     content = content.slice(0, 2000 - title.length);
   }
 
-  let request_body = {
+  let requestBody = {
     document: {
       title: title,
       content: cleanText(content),
@@ -97,27 +90,22 @@ app.post('/summary', async function (req, res) {
       summaryCount: 3,
     },
   };
-
-  const api_url =
-    'https://naveropenapi.apigw.ntruss.com/text-summary/v1/summarize';
-  const summaryResponse = await fetch(api_url, {
+  const apiUrl = 'https://naveropenapi.apigw.ntruss.com/text-summary/v1/summarize';
+  
+  const summaryResponse = await fetch(apiUrl, {
     method: 'POST',
     headers: {
       'X-NCP-APIGW-API-KEY-ID': summaryId,
       'X-NCP-APIGW-API-KEY': summarySecret,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(request_body),
+    body: JSON.stringify(requestBody),
   });
 
   const summaryData = await summaryResponse.json();
-  console.log(summaryData);
   res.send(summaryData);
 });
 
-
 app.listen(3000, function () {
-  console.log(
-    'http://127.0.0.1:3000/search/news?query=검색어 app listening on port 3000!',
-  );
+  console.log('app listening on port 3000!');
 });
