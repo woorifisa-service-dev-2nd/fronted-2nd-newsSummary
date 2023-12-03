@@ -30,6 +30,7 @@
 <br/>
 
 ## ⚙ 기능 시연
+![news](https://github.com/woorifisa-service-dev-2nd/fronted-2nd-musicApp/assets/65431814/ff328653-9994-453d-a045-9f87c8b462cf)
 
 <br/>
 <br/>
@@ -65,8 +66,8 @@
 
 ## ✔ 핵심 기능
 
-1. 뉴스 검색
-   네이버 뉴스 검색 api를 통해 입력한 키워드에 맞는 네이버 뉴스를 최신 순으로 가져옵니다.
+### 1. 뉴스 검색
+네이버 뉴스 검색 api를 통해 입력한 키워드에 맞는 네이버 뉴스를 최신 순으로 가져옵니다.
 
 ```javascript
 // 검색 버튼
@@ -91,8 +92,8 @@ searchBtn.addEventListener('click', () => {
 });
 ```
 
-2. 뉴스 업데이트
-   가장 최신 뉴스의 날짜, 제목, 본문을 보여줍니다.
+### 2. 뉴스 업데이트
+가장 최신 뉴스의 날짜, 제목, 본문을 보여줍니다.
 
 ```javascript
 // 뉴스 업데이트 함수
@@ -111,8 +112,8 @@ function updateNews(index) {
 }
 ```
 
-3. 뉴스 본문 스크래핑
-   puppeteer를 사용하여 뉴스 본문 내용을 스크래핑합니다.
+### 3. 뉴스 본문 스크래핑
+puppeteer를 사용하여 뉴스 본문 내용을 스크래핑합니다.
 
 ```javascript
 app.post('/scrap/news', async function (req, res) {
@@ -137,8 +138,8 @@ app.post('/scrap/news', async function (req, res) {
 });
 ```
 
-4. 뉴스 요약
-   요약 버튼을 클릭하면 NCloud 요약 api를 사용해 뉴스 본문을 요약합니다.
+### 4. 뉴스 요약
+요약 버튼을 클릭하면 NCloud 요약 api를 사용해 뉴스 본문을 요약합니다.
 
 ```javascript
 const summaryBtn = document.getElementById('summary-button');
@@ -160,8 +161,8 @@ summaryBtn.addEventListener('click', () => {
 });
 ```
 
-5. 다음 버튼 및 이전 버튼
-   버튼을 클릭해 다음 or 이전 뉴스를 보여줍니다.
+### 5. 다음 버튼 및 이전 버튼
+버튼을 클릭해 다음 or 이전 뉴스를 보여줍니다.
 
 ```javascript
 javascript;
@@ -188,27 +189,6 @@ previousBtn.addEventListener('click', () => {
 });
 ```
 
-6. 다크모드
-   우측 상단의 달 모양 버튼을 클릭하면 다크모드로 전환되며 로고와 글자가 모두 흰색으로 바뀝니다.
-
-```javascript
-darkmodeBtn.addEventListener('click', () => {
-  html.classList.toggle('dark-mode');
-  document.body.classList.toggle('dark-mode');
-  divs.forEach((div) => div.classList.toggle('dark-mode'));
-  // 다크모드일 때
-  if (document.body.classList.contains('dark-mode')) {
-    logo.src = './images/logo_White.png';
-    icon.className = 'fa-solid fa-sun';
-    icon.style.color = '#ffffff';
-    // 아닐 때
-  } else {
-    logo.src = './images/logo_Green.png';
-    icon.className = 'fa-solid fa-moon';
-    icon.style.color = '#000000';
-  }
-});
-```
 
 <br/>
 <br/>
