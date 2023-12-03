@@ -1,3 +1,11 @@
+![header](https://capsule-render.vercel.app/api?type=waving&color=0:BDBDC8,100:BDBDC8)
+
+<div align="center">
+  
+  [![Typing SVG](https://readme-typing-svg.demolab.com?font=Playfair+Display&weight=800&size=80&duration=6000&pause=1000&color=000000&random=false&width=600&height=150&lines=News+Summary)](https://git.io/typing-svg)
+  
+</div>
+
 ## 📝 프로젝트 소개
 
 - 특정 검색어를 입력하면 그에 따른 최신 네이버 뉴스를 요약해서 제공하는 웹 서비스
@@ -32,8 +40,7 @@
 <br/>
 
 ## ⚙ 기능 시연
-![news](https://github.com/woorifisa-service-dev-2nd/fronted-2nd-musicApp/assets/65431814/ff328653-9994-453d-a045-9f87c8b462cf)
-
+<img width="100%" src='https://github.com/woorifisa-service-dev-2nd/fronted-2nd-musicApp/assets/65431814/ff328653-9994-453d-a045-9f87c8b462cf' />
 <br/>
 <br/>
 
@@ -67,6 +74,10 @@
 <br/>
 
 ## ✔ 핵심 기능
+
+![화면 캡처 2023-12-03 003544](https://github.com/woorifisa-service-dev-2nd/fronted-2nd-newsSummary/assets/65431814/a6b64d9d-81c5-46c7-8c79-0c4c05252337)
+
+<br/>
 
 ### 1. 뉴스 검색
 네이버 뉴스 검색 api를 통해 입력한 키워드에 맞는 네이버 뉴스를 최신 순으로 가져옵니다.
@@ -257,3 +268,5 @@ previousBtn.addEventListener('click', () => {
 - 김지관 : 원하는 텍스트 부분을 가져오기 위해 웹 스크래핑을 활용하였는데 혼용해서 사용하고 있던 크롤링과 스크래핑의 차이를 알게 되었고 무단 사용시 불법이라는 것을 알게 되었습니다.
 
 - 이진천 : git을 공부하고 활용할 수 있는 좋은 경험이었고, node.js 환경에서 Web API를 사용할 수 있는 방법을 알게 되었습니다.
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=footer" />
