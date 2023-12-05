@@ -71,7 +71,7 @@ summaryBtn.addEventListener('click', () => {
     });
 });
 
-// 다음 버튼
+// 다음버튼
 const nextBtn = document.getElementById('next');
 nextBtn.addEventListener('click', () => {
   if (currentIndex < naverNews.length - 1) {
