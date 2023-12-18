@@ -8,10 +8,9 @@ searchBtn.addEventListener('click', () => {
   const text = document.getElementById('text').value;
   const url = '/search/news';
 
-  fetch(`${url}?query=${text}&sort=date`, { method: 'GET' })
+  fetch(`${url}?query=${text}&sort=date`)
     .then((res) => res.json())
     .then((data) => {
-      // 'naver'가 포함된 뉴스만
       naverNews = data.items.filter((item) => item.link.includes('naver'));
       currentIndex = 0;
       searchedNewsArray.length = 0;
@@ -30,7 +29,7 @@ function updateNews(index) {
 
   scrap(newsUrl)
   .then((newsData) => {
-    let searchedNews = {
+    const searchedNews = {
       date: naverNews[index].pubDate.slice(0, 17),
       title: naverNews[index].title,
       article: newsData.news
@@ -41,15 +40,17 @@ function updateNews(index) {
 }
 
 // 스크래핑 함수
-function scrap(newsUrl) {
-  return fetch('/scrap/news', {
+async function scrap(newsUrl) {
+  const res = await fetch('/scrap/news', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ newsLink: newsUrl }),
-  })
-    .then((res) => res.json())
+  });
+  
+  const data = await res.json();
+  return data;
 }
 
 // 요약 버튼
